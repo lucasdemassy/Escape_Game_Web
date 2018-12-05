@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head Access-Control-Allow-Origin: *>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Liens pour utiliser l'API Leaflet et générer la carte -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+     integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+      integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+      crossorigin=""></script>
+    <!-- Lien vers le CSS de la carte -->
+    <link rel="stylesheet" href="Carte.css">
+    <!-- police -->
+    <link href="https://fonts.googleapis.com/css?family=Neucha" rel="stylesheet">
+    <!-- Librairie Javascript utilisée pour l'animation du bouton valider (sa disparition) -->
+    <script type="text/javascript" src = "jquery-3.3.1.min.js"> </script>
+  </head>
+  <body>
+
+    <!-- Balise de la carte -->
+     <div id="mapid"></div>
+
+     <!-- Balise pour définir deux input affichés au démarrage du jeu :
+      ils permtetent au joueur d'inscrire son pseudo et de le valider pour lancer le jeu
+      grâce au script ci-dessous -->
+     <div id="Accueil">
+       <form method="post" action="Carte.php">
+         <div id = "question">
+           <input type="text" id="pseudo" name="pseudo" value="pseudo"/></label>
+           <input type="button" id="valider" value="valider"/>
+         </div>
+       </form>
+     </div>
+
+     <!-- Ce script permet de lancer le jeu et le chrono -->
+     <script type="text/javascript">
+          // On désactive l'événement qui se produit lorsque l'on presse la touche entrée :
+          $(document).keypress(function(event) {
+          var keycode = (event.keyCode ? event.keyCode : event.which);
+          if(keycode == '13'){
+            event.preventDefault()};
+        });
+
+        // Action du bouton valider :
+        var button_valider = document.getElementById("valider");
+        button_valider.addEventListener('click', function() {
+          $('#question').fadeOut('slow'); // l'image, le bouton et l'input du pseudo s'effacent.
+          var min_max = 2; // On définit un temps max pour réaliser la quête
+          var sec_max = 30;
+          var sec = 0; // On initialise le chrono
+          var min = 0;
+
+          // Le compteur réalise un setInterval qui fait appel à la fonction chrono toutes les secondes
+          compteur = setInterval(function chrono() {
+            sec++; // Le nombre de secondes est incrémenté chaque seconde.
+            sec_max--; // Tandis que sec_max est décrémentée chaque seconde.
+
+            // Gestion de l'affichage du chrono :
+            if(sec%60 == 0) {
+              min+= 1;
+              sec=0;
+            }
+            if(sec_max == 0) {
+              sec_max = 60;
+              min_max-=1;
+            }
+            // Affichage du chrono et du temps à rebours en minutes et secondes :
+            var temps = min.toString() + ":" + sec.toString();
+            var temps_restant = min_max.toString() + ":" + sec_max.toString();
+            parent.document.form1.chrono.value = temps; // On affiche les secondes qui défilent dans la balise chrono
+            parent.document.form1.rebours.value = temps_restant; // On affiche le temps restant pour finir la quête
+
+
+            if (min_max == 0 && sec_max == 30) {
+              // S'il reste 30 secondes pour finir la quête, le compte-à-rebours s'affiche en rouge
+              parent.document.getElementById("rebours").style = "color: #DB0000;";
+            }
+            if (min_max == 0 && sec_max == 1) {
+              // Si le temps imparti pour gagner est atteint, le joueur a perdu et une autre page html s'affiche.
+              window.location.href = "loose.html";
+            }
+          }, 1000); // On incrémente i chaque seconde.
+        });
+     </script>
+
+
+   <!-- Lien vers le javascript associé à la carte -->
+   <script type="text/javascript" src="Projet.js"> </script>
+  </body>
+</html>

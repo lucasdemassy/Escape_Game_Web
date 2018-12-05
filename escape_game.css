@@ -1,0 +1,159 @@
+/* Le body définit l'architexture générale de la page */
+body {
+    /* L'élément Flexbox définit l'axe principal, organisé en colonnes, avec les élements centrés */
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+
+    margin: auto;
+    /* largeur de 80% pour laisser des marges sur les côtés */
+    width: 80%;
+    height: 100%;
+    /* Définition de la police, de sa taille et de sa couleur */
+    font-size: 14px;
+    color: white;
+    font-family: 'Neucha', cursive;
+    /* Définition de l'image en arrière-plan */
+    background: url(Images/adventure.png) center top;
+    background-size: cover; /* l'image couvre tout l'arrière plan */
+  }
+
+/* ------------ DEBUT HEADER ------------ */
+  /* enête du site*/
+  body header{
+    text-align: center; /* centrer le logo et le menu */
+    margin-top: 50px; /* Marge entre le haut de la page et le logo */
+    margin-bottom: 20px; /* Marge entre le menu et le content */
+  }
+
+  /* Définition des caractéristiques des boutons du menu de la classe myButton */
+  .myButton {
+    /* police, taille et couleur */
+    font-family: 'Neucha', cursive;
+    font-size: 2.5em;
+    color: white;
+
+    display: inline-block; /*Les trois bouttons sont affichés côte à côte */
+    /* Définition du fond des boutons */
+    background-color: #DB0000;
+    opacity: 0.6;
+    width: 30%; /* largeur de chaque bouton */
+    border: none; /* suppression de la bordure externe */
+
+    text-align: center; /* centrer le texte du bouton */
+    transition: 0.3s; /* changement d'opacité progressif */
+
+    cursor: pointer; /* C'est une main qui apparaît quand l'on survole le boutton */
+  }
+
+  .myButton:hover {opacity: 1} /* Lorsque l'on passe le pointeur sur le bouton, son opacité passe de 0.6 à 1. */
+
+/* ------------ FIN HEADER ------------ */
+
+/* ------------ DEBUT ANNEXE ------------ */
+/* Définition des éléments annexes */
+
+/* Positionnement du lecteur audio */
+#ambiance {
+  position: absolute; /* L'élément se superpose aux autres */
+  left: 20px;
+  top: 20px;
+}
+
+/* Positionnement du tableau des scores */
+#hall_of_fame {
+  position: absolute;
+  left: 20px;
+  top: 100px;
+  /* Le fond est choisi noir, d'opacité 0.6, avec des bords arrondis */
+  background-color: black;
+  opacity: 0.6;
+  border-radius: 10px 10px;
+}
+
+/* Taille du titre Hall of fame */
+#titre {
+  font-size: 1.8em;
+}
+
+/* Largeur du tableau maximale et texte centré */
+table{
+  width:100%;
+  text-align: center;
+}
+
+/* ------------ FIN ANNEXE ----------- */
+
+
+/* ------------ DEBUT CONTENT ------------ */
+/* Minuterie : les éléments sont alignés */
+#minuterie {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+#horloge {margin: 20px; height:100px; weight:82px;} /* Définition de la taille de l'horloge */
+
+/* Marges pour mieux disposer l'horloge et le chrono */
+#formulaire {
+  margin-top: 30px;
+}
+
+/* fonds du temps et du décompte */
+.fond {
+  background-color: black;
+  opacity:0.7;
+  color:white;
+  border:none;
+  text-align: center;
+  border-radius: 10px 10px;
+}
+
+iframe {
+  border-style: none; /* suppression des bordures extérieures */
+}
+
+/* Les cases qui définissent l'inventaire sont placées en ligne */
+.cases {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* Taille de chaque case (représentées par une image) de l'inventaire */
+.case {
+  weight: 80px;
+  height: 80px;
+}
+
+/* Cette classe définit l'arrière-plan des textes des autres pages html accessibles par le menu */
+.textes {
+   margin: 0 150px 50px 150px;
+   padding: 20px;
+   background-color: black;
+   opacity: 0.8;
+   border-radius: 10px 10px;
+   text-align: center;
+   list-style-type:none;
+}
+
+/* ------------ FIN CONTENT ------------ */
+
+
+/* ------------ DEBUT FOOTER ------------ */
+footer {
+  weight: 100px;
+  height: 50px;
+  align-self: center;
+  text-align: center;
+  background:  #DB0000;
+  opacity: 0.6;
+  font-size:1em;
+  padding: 10px;
+  /* Bordure blanche discontinue d'épaisseur de 1pixel */
+  border-style: dashed;
+  border-width: 1px;
+  border-color: white;
+}
+/* ------------ FIN FOOTER ------------ */

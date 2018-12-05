@@ -1,0 +1,55 @@
+/* Définition de la hauteur de la carte */
+#mapid{
+  height: 600px;
+}
+
+
+/* Balise affichant une image au début du jeu sur la carte */
+#question {
+  z-index: 9998; /* La carte a un index très élevé, d'où le choix de ce z pour placer l'image au-dessus
+  et masquer également les contributors et les zoom de la carte */
+  position: absolute;
+  /* La position de l'image est définie de sorte à englober la totalité de la carte */
+  top:0%;
+  left:0%;
+  right:0%;
+  bottom:0%;
+  width:100%;
+  height: 100%;
+  /* Lien vers l'image de fond qui couvre entièrement la carte */
+  background-image: url("Images/globes.jpg");
+  background-size: cover;
+}
+
+/* L'input du pseudo a une position et une taille fixes par-dessus l'image de fond */
+#pseudo {
+  z-index: 9999;
+  position: fixed;
+  top: 20%;
+  left: 45%;
+  width: 200px;
+  height: 70px;
+  font-family: 'Neucha', cursive;
+  font-size: 2em;
+  text-align: center;
+}
+
+/* Le bouton valider a une position et une taille fixes par-dessus l'image de fond */
+#valider{
+  z-index: 9999;
+  position: fixed;
+  top: 50%;
+  left: 45%;
+  width: 210px;
+  height: 100px;
+  font-family: 'Neucha', cursive;
+  font-size: 2em;
+  background-color: #DB0000;
+  border: none;
+  color: white;
+  opacity: 0.6;
+  transition: 0.3s; /* changement d'opacité progressif */
+  cursor: pointer; /* C'est une main qui apparaît quand l'on survole le boutton */
+}
+
+#valider:hover {opacity: 1} /* Lorsque l'on passe le pointeur sur le bouton, son opacité passe de 0.6 à 1. */

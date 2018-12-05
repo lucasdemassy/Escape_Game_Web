@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang=fr dir="ltr">
+  <head Access-Control-Allow-Origin: *>
+    <meta charset="utf-8">
+    <title> Escape Game</title>
+    <link rel="stylesheet" href="escape_game.css">
+    <!-- police -->
+    <link href="https://fonts.googleapis.com/css?family=Neucha" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'></script>
+
+    </head>
+  <body>
+
+    <header>
+      <div id="header">
+        <!-- Logo du jeu et lien vers la page d'accueil -->
+        <a href="#">
+          <h1><img id="logo" src="Images/logo.png" alt="logo"/></h1>
+        </a>
+      </div>
+
+      <div id="menu">
+        <!-- Boutons permettant l'accès aux autres pages du site -->
+        <button class="myButton" type="button" name="geocube" onclick="window.location.href='geocube.html';"> Le Géocube </button>
+        <button class="myButton" type="button" name="enigmes" onclick="window.location.href='enigmes.html';"> Les énigmes </button>
+        <button class="myButton" type="button" name="contributeurs" onclick="window.location.href='contributeurs.html';"> Les contributeurs </button>
+      </div>
+    </header>
+
+    <!-- Balises annexes placées sur le côté gauche de la page html -->
+
+    <!-- Musique de fond : création d'un lecteur audio -->
+    <div id="ambiance">
+      <audio controls preload="auto" autoplay="true"> <!-- la valeur auto du preload spécifie que le fichier audio
+        doit être chargé en entier quand la page est chargée. L'attribut autoplay indique que l'audio est lancé automatiquement
+        au chargement de la page  -->
+        <source src="IronMan.mp3" type="audio/mpeg"> <!-- Fichier audio qui doit être chargé et indication de son type -->
+      </audio>
+    </div>
+
+    <!-- Hall of fame, scores des joueurs  -->
+    <div id="hall_of_fame">
+      <h1 id="titre"> HALL OF FAME </h1>
+      <table> <!-- On définit une table qui est un tableau selon ses lignes (tr) et colonnes (td) -->
+        <thead> <!-- titres des colonnes définit dans la première ligne (tr) et les différentes colonnes (th) -->
+          <tr>
+            <th> </th>
+            <th> pseudo </th>
+            <th> temps </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> 1er: </td>
+            <td id="1er_joueur"></td> <!-- Le tableau est vide afin de le remplir en faisant appel à la BDD grâce au script ci-dessous -->
+            <td id="1er_temps"></td>
+          </tr>
+          <tr>
+            <td> 2ème: </td>
+            <td id="2e_joueur"></td>
+            <td id="2e_temps"></td>
+          </tr>
+          <tr>
+            <td> 3ème: </td>
+            <td id="3e_joueur"></td>
+            <td id="3e_temps"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Script permettant de mettre à jour le Hall of Fame au chargement de la page -->
+    <script type="text/javascript">
+    window.addEventListener("load", function(){ //Quand la fenêtre est chargée, on met à jour le Hall of Fame
+      var ajax = new XMLHttpRequest();
+      // méthode HTTP utilisée et fichier à charger :
+      ajax.open('GET', "Projet.php?hall_of_fame=1");
+      ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); // envoi la requête
+      // on écoute l’évènement load de la requête :
+      ajax.addEventListener("load", function() {
+        var result = JSON.parse(ajax.responseText); // On récupère les trois meilleurs temps dans la base de données
+        // On ajoute dans les bonnes balises les noms et 3 meilleurs temps des joueurs.
+        document.getElementById("1er_joueur").innerHTML = result[0]["pseudo"];
+        document.getElementById("1er_temps").innerHTML = result[0]["temps"];
+        document.getElementById("2e_joueur").innerHTML = result[1]["pseudo"];
+        document.getElementById("2e_temps").innerHTML = result[1]["temps"];
+        document.getElementById("3e_joueur").innerHTML = result[2]["pseudo"];
+        document.getElementById("3e_temps").innerHTML = result[2]["temps"];
+      });
+      ajax.send();
+    });
+    </script>
+
+
+
+    <!-- Contenu principal du site -->
+    <content>
+
+      <!-- Minuterie : temps imparti pour gagner la partie -->
+      <div id="minuterie">
+        <img id="horloge" src="Images/horloge.png">
+        <!-- Un formulaire est défini pour afficher le chrono et le temps à rebours du jeu -->
+        <form id="formulaire" name="form1" method="post" action="">
+          <!-- Un premier input permet d'inscrire le temps qui s'écoule depuis le début de la partie -->
+          <p> <input class="fond" name="chrono" type="text" id="chrono" size="3" maxlength="3" value="0"> </p>
+          <!-- Un deuxième input affiche le temps restant pour gagner le jeu -->
+          <p>
+            <label for="textfield"></label>
+            Il vous reste
+            <input class="fond" name="rebours" type="text" id="rebours" size="3" value="500">
+            secondes pour récupérer le Géocube !
+          </p>
+        </form>
+      </div>
+
+      <!-- Insertion du html contenant la carte grâce à une balise iframe -->
+      <div id="carte">
+        <!-- boîte qui contient la carte d'où une hauteur supérieure à celle de la carte  -->
+        <iframe id="iframe" src="Carte.html" width="100%" height="620px"> </iframe>
+      </div>
+
+
+      <!-- Alignement des cases de l'inventaire -->
+      <div class="cases">
+        <p><img id="case1" class="case" src="Images/case.png" draggable="true" ondragstart="drag(event)" alt="empty" /></p>
+        <p><img id="case2" class="case" src="Images/case.png" draggable="true" ondragstart="drag(event)" alt="empty" /></p>
+        <p><img id="case3" class="case" src="Images/case.png" draggable="true" ondragstart="drag(event)" alt="empty" /></p>
+        <p><img id="case4" class="case" src="Images/case.png" draggable="true" ondragstart="drag(event)" alt="empty" /></p>
+        <p><img id="case5" class="case" src="Images/case.png" draggable="true" ondragstart="drag(event)" alt="empty" /></p>
+        <p><img id="case6" class="case" src="Images/case.png" draggable="true" ondragstart="drag(event)" alt="empty" /></p>
+        <p><img id="case7" class="case" src="Images/case.png" draggable="true" ondragstart="drag(event)" alt="empty" /></p>
+        <p><img id="case8" class="case" src="Images/case.png" draggable="true" ondragstart="drag(event)" alt="empty" /></p>
+        <p><img id="case9" class="case" src="Images/case.png" draggable="true" ondragstart="drag(event)" alt="empty" /></p>
+      </div>
+
+      <script type="text/javascript">
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+      }
+      </script>
+
+    </content>
+
+    <!-- FIN DU CONTENT -->
+
+    <!-- Bas-de-pages -->
+    <footer id="footer">
+      <span id="real"> Réalisation :
+        <br>
+          Lucas Bres & Apolline De Wit
+      </span>
+    </footer>
+  </body>
+</html>
